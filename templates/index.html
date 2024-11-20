@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Welcome Welcome</h1>
+    <h1>Samiullah Soba's 🤣🤣 🤣🤣</h1>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <audio id="welcomeAudio" preload="auto">
+        <source src="{{ url_for('static', filename='welcome.mp3') }}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="index-links">
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        var audio = document.getElementById('welcomeAudio');
+
+        audio.currentTime = 0;
+
+        function playAudio() {
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    console.log("Audio is playing.");
+                }).catch(function(error) {
+                    console.log("Autoplay failed. Error: ", error);
+                    window.addEventListener('click', function() {
+                        var playAfterClick = audio.play();
+                        playAfterClick.then(function() {
+                            console.log("Audio played after user click.");
+                        }).catch(function(error) {
+                            console.log("Error after click: ", error);
+                        });
+                    });
+                });
+            }
+        }
+
+        playAudio();
+
+        audio.addEventListener('play', function() {
+            console.log("Audio started playing automatically.");
+        });
+    };
+</script>
