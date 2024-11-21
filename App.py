@@ -7,7 +7,7 @@ app.secret_key = 'your_secret_key'
 def init_db():
     conn = sqlite3.connect('users.db')
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS users (
+    c.execute('''CREATE TABLE IF NOT EXISTS yourtable (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     phno TEXT NOT NULL UNIQUE,
@@ -31,7 +31,7 @@ def register():
         c = conn.cursor()
         
         try:
-            c.execute("INSERT INTO users (name, phno, password) VALUES (?, ?, ?)", (name, phno, password))
+            c.execute("INSERT INTO yourtable (name, phno, password) VALUES (?, ?, ?)", (name, phno, password))
             conn.commit()
             flash('Registration successful! Please login.', 'success')
             return redirect(url_for('login'))
@@ -54,7 +54,7 @@ def login():
         
         conn = sqlite3.connect('users.db')
         c = conn.cursor()
-        c.execute("SELECT * FROM users WHERE phno=? AND password=?", (phno, password))
+        c.execute("SELECT * FROM yourtable WHERE phno=? AND password=?", (phno, password))
         user = c.fetchone()
         
         if user:
